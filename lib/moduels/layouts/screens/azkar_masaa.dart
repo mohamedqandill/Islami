@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:islami/core/widgets/bg_widget.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/theme/app_theme.dart';
+import '../../../providers/my_provider.dart';
 
 class AzkarMasaa extends StatefulWidget {
   static const String routeName = "azkarMasaa";
@@ -33,7 +34,7 @@ class _AzkarMasaaState extends State<AzkarMasaa> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = AppTheme.isDark;
+    var pro = Provider.of<MyProvider>(context);
 
     return bg_widget(
         child: Scaffold(
@@ -66,16 +67,20 @@ class _AzkarMasaaState extends State<AzkarMasaa> {
                       width: double.infinity,
                       // height: 200,
                       decoration: BoxDecoration(
-                        color: isDark ? Color(0xff141A2E) : Colors.white,
+                        color: pro.mode == ThemeMode.dark
+                            ? Color(0xff141A2E)
+                            : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                            color:
-                                isDark ? Color(0xffFACC1D) : Color(0xffB7935F),
-                            blurRadius: 30,
+                            color: pro.mode == ThemeMode.dark
+                                ? Colors.red
+                                : Color(0xffB7935F),
+                            blurRadius: 10,
+                            spreadRadius: 1,
                             blurStyle: BlurStyle.outer,
                           ),
                         ],
-                        border: Border.all(color: Color(0xffB7935F), width: 2),
+                        border: Border.all(color: Colors.red, width: 1),
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(50),
                           bottomLeft: Radius.circular(20),

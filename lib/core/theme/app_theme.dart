@@ -50,7 +50,7 @@ class AppTheme {
   static ThemeData darkTheme = ThemeData(
       textTheme: TextTheme(
           bodyLarge: GoogleFonts.elMessiri(
-              fontSize: 22, fontWeight: FontWeight.w500, color: darkSecondary),
+              fontSize: 22, fontWeight: FontWeight.w500, color: Colors.white),
           bodyMedium: TextStyle(
               fontSize: 25, fontWeight: FontWeight.w700, color: Colors.white),
           titleMedium: TextStyle(

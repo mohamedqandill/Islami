@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:islami/moduels/layouts/screens/sura_details.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/theme/app_theme.dart';
+import '../../../providers/my_provider.dart';
 
 class QuranScreen extends StatelessWidget {
   QuranScreen({super.key});
@@ -241,7 +243,8 @@ class QuranScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = AppTheme.isDark;
+    // bool isDark = AppTheme.isDark;
+    var pro = Provider.of<MyProvider>(context);
 
     return Scaffold(
       body: Center(
@@ -252,18 +255,16 @@ class QuranScreen extends StatelessWidget {
               width: 150,
             ),
             Divider(),
-            IntrinsicHeight(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Text("عدد الايات",
-                      style: Theme.of(context).textTheme.titleMedium),
-                  Text(
-                    "اسم السوره",
-                    style: Theme.of(context).textTheme.titleMedium,
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Text("suraNum".tr(),
+                    style: Theme.of(context).textTheme.titleMedium),
+                Text(
+                  "suraName".tr(),
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              ],
             ),
             Divider(),
             SizedBox(
@@ -287,14 +288,20 @@ class QuranScreen extends StatelessWidget {
                           topRight: Radius.circular(38),
                         ),
                         border: Border.all(
-                            color: isDark ? Color(0xffFACC1D) : Colors.white,
+                            color: pro.mode == ThemeMode.dark
+                                ? Color(0xffFACC1D)
+                                : Colors.redAccent,
                             width: 1),
-                        color: isDark ? Color(0xff141A2E) : Color(0xffB7935F),
+                        color: pro.mode == ThemeMode.dark
+                            ? Color(0xff141A2E)
+                            : Color(0xffB7935F),
                         boxShadow: [
                           BoxShadow(
-                              color: isDark ? Color(0xffFACC1D) : Colors.grey,
-                              spreadRadius: 4,
-                              blurRadius: 15)
+                              color: pro.mode == ThemeMode.dark
+                                  ? Color(0xffFACC1D)
+                                  : Colors.grey,
+                              spreadRadius: 2,
+                              blurRadius: 7)
                         ]
 
                         // gradient: LinearGradient(

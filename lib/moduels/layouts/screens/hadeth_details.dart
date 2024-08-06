@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:islami/core/theme/app_theme.dart';
 import 'package:islami/core/widgets/bg_widget.dart';
 import 'package:islami/moduels/hadeth_models.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/my_provider.dart';
 
 class HadethDetails extends StatefulWidget {
   static const String routeName = "hadethDetails";
@@ -15,11 +15,11 @@ class HadethDetails extends StatefulWidget {
 }
 
 class _HadethDetailsState extends State<HadethDetails> {
-  bool isDark = AppTheme.isDark;
 
   @override
   Widget build(BuildContext context) {
     var model = ModalRoute.of(context)?.settings.arguments as hadethModel;
+    var pro = Provider.of<MyProvider>(context);
 
     return bg_widget(
       child: Scaffold(
@@ -45,7 +45,8 @@ class _HadethDetailsState extends State<HadethDetails> {
           padding: EdgeInsets.all(20),
           margin: EdgeInsets.all(20),
           decoration: BoxDecoration(
-              color: isDark ? Color(0xff141A2E) : Colors.white,
+              color:
+                  pro.mode == ThemeMode.dark ? Color(0xff141A2E) : Colors.white,
               borderRadius: BorderRadius.circular(30),
               boxShadow: [
                 BoxShadow(
@@ -63,7 +64,7 @@ class _HadethDetailsState extends State<HadethDetails> {
                   Text(
                     textDirection: TextDirection.rtl,
                     "${model.content[index]}",
-                    style: isDark
+                    style: pro.mode == ThemeMode.dark
                         ? Theme.of(context).textTheme.bodyLarge
                         : Theme.of(context).textTheme.bodyMedium,
                   ),

@@ -47,7 +47,7 @@ class _NabiScreenState extends State<NabiScreen> {
                 ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         elevation: 20,
-                        side: BorderSide(color: Color(0xffFACC1D), width: 2),
+                        side: BorderSide(color: Colors.red, width: 2),
                         backgroundColor: isDark
                             ? Color(0xffFACC1D).withOpacity(0.7)
                             : Color(0xffB7935F),
