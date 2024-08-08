@@ -290,7 +290,7 @@ class QuranScreen extends StatelessWidget {
                         border: Border.all(
                             color: pro.mode == ThemeMode.dark
                                 ? Color(0xffFACC1D)
-                                : Colors.redAccent,
+                                : Color(0xffB7935F),
                             width: 1),
                         color: pro.mode == ThemeMode.dark
                             ? Color(0xff141A2E)
@@ -299,9 +299,9 @@ class QuranScreen extends StatelessWidget {
                           BoxShadow(
                               color: pro.mode == ThemeMode.dark
                                   ? Color(0xffFACC1D)
-                                  : Colors.grey,
+                                  : Colors.amberAccent,
                               spreadRadius: 2,
-                              blurRadius: 7)
+                              blurRadius: 5)
                         ]
 
                         // gradient: LinearGradient(

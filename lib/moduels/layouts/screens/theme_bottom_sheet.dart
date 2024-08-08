@@ -36,7 +36,13 @@ class ThemeBottomSheet extends StatelessWidget {
                             : Colors.black,
                         fontSize: 30),
                   ),
-                  // Icon(Icons.done,size: 30,color: Colors.black,)
+                  pro.mode == ThemeMode.light
+                      ? Icon(
+                          Icons.done,
+                          size: 30,
+                          color: Colors.black,
+                        )
+                      : SizedBox()
                 ],
               ),
             ),
@@ -59,7 +65,13 @@ class ThemeBottomSheet extends StatelessWidget {
                             : Colors.black,
                         fontSize: 30),
                   ),
-                  // Icon(Icons.done,size: 30,color: Colors.black,)
+                  pro.mode == ThemeMode.dark
+                      ? Icon(
+                          Icons.done,
+                          size: 30,
+                          color: Colors.black,
+                        )
+                      : SizedBox()
                 ],
               ),
             ),

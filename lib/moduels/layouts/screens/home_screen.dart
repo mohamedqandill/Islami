@@ -203,17 +203,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           elevation: 8,
                           shadowColor: Colors.amber),
                       onPressed: () {
-                        index++;
-                        if (index == 5) {
-                          index = 0;
-                        }
+                        Navigator.pushNamed(context, AzkarMasaa.routeName);
                         setState(() {});
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "مواقيت الصلاه",
+                            "اذكار المساء",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           // Image(image: AssetImage("assets/icons/icons8-swap-50.png",),width: 40,),
@@ -239,14 +236,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           elevation: 8,
                           shadowColor: Colors.amber),
                       onPressed: () {
-                        Navigator.pushNamed(context, AzkarMasaa.routeName);
+                        index++;
+                        if (index == 5) {
+                          index = 0;
+                        }
                         setState(() {});
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "اذكار المساء",
+                            "مواقيت الصلاه",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           // Image(image: AssetImage("assets/icons/icons8-swap-50.png",),width: 40,),

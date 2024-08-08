@@ -25,11 +25,11 @@ List<Widget> screen = [
   SettingScreen(),
 ];
 List<String> titels = [
-  'quranTap'.tr(),
-  'appBarTitle'.tr(),
-  'hadethTap'.tr(),
-  'tasbehTap'.tr(),
-  'settingsTap'.tr()
+  "quran",
+  'appBarTitle',
+  'appBarHadeth',
+  'appBarTaspeh',
+  'appBarSettings'
 ];
 
 class _LayoutScreenState extends State<LayoutScreen> {
@@ -42,7 +42,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text(
-            titels[selectedIndex],
+            titels[selectedIndex].tr(),
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),

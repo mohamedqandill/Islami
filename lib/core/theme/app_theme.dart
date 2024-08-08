@@ -8,7 +8,7 @@ class AppTheme {
   static bool isDark = true;
   static ThemeData lightTheme = ThemeData(
       textTheme: TextTheme(
-          bodyLarge: GoogleFonts.elMessiri(
+          bodyLarge: GoogleFonts.amiri(
               fontSize: 20, fontWeight: FontWeight.w500, color: Colors.black),
           bodyMedium: TextStyle(
               fontSize: 25, fontWeight: FontWeight.w700, color: Colors.black),

@@ -38,7 +38,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
               Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 75),
+                    margin: EdgeInsets.only(top: 79),
                     child: AnimatedRotation(
                       turns: turns,
                       duration: Duration(milliseconds: 150),
@@ -52,13 +52,17 @@ class _SebhaScreenState extends State<SebhaScreen> {
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 120),
+                    margin: EdgeInsets.only(left: 100, right: 50, top: 10),
                     child: Image(
-                        alignment: Alignment.topCenter,
-                        fit: BoxFit.cover,
+                      // alignment: Alignment.topCenter,
+                      fit: BoxFit.cover,
                         image: pro.mode == ThemeMode.dark
-                            ? AssetImage("assets/icons/head of seb7a.png")
-                            : AssetImage("assets/images/head of seb7a.png")),
+                          ? AssetImage(
+                              "assets/icons/head of seb7a.png",
+                            )
+                          : AssetImage("assets/images/head of seb7a.png"),
+                      height: 130,
+                    ),
                   ),
                 ],
               ),

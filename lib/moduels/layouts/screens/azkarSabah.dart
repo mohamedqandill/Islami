@@ -91,7 +91,9 @@ class _AzkarSabahState extends State<AzkarSabah> {
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(20),
                           ),
-                          border: Border.all(color: Colors.red, width: 1)),
+                          border: pro.mode == ThemeMode.dark
+                              ? Border.all(color: Colors.red, width: 1)
+                              : Border.all(color: Color(0xffB7935F), width: 3)),
                       child: Text(
                         "${azkaar[index]}",
                         textDirection: TextDirection.rtl,

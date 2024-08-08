@@ -10,8 +10,11 @@ import 'package:islami/moduels/layouts/screens/sura_details.dart';
 import 'package:islami/moduels/splash/screens/splash_screen.dart';
 import 'package:islami/providers/my_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var sharedPrefernces = await SharedPreferences.getInstance();
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   runApp(EasyLocalization(
@@ -22,7 +25,8 @@ void main() async {
     // <-- change the path of the translation files
     fallbackLocale: Locale('en', 'US'),
     child: ChangeNotifierProvider(
-        create: (context) => MyProvider(), child: const MyApp()),
+        create: (context) => MyProvider(sharedPrefernces),
+        child: const MyApp()),
   ));
 }
 

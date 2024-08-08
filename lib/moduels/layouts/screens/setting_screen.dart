@@ -23,8 +23,10 @@ class _SettingScreenState extends State<SettingScreen> {
       body: Column(
         children: [
           Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20, bottom: 2),
+              alignment: context.locale == Locale("ar")
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20, bottom: 2, right: 20),
               child: Text("themeTap".tr())),
           InkWell(
             onTap: () {
@@ -44,7 +46,11 @@ class _SettingScreenState extends State<SettingScreen> {
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Color(0xffFACC1D), width: 2),
+                border: Border.all(
+                    color: pro.mode == ThemeMode.dark
+                        ? Color(0xffFACC1D)
+                        : Color(0xffB7935F),
+                    width: 3),
               ),
               child: Text(
                   pro.mode == ThemeMode.light ? "light".tr() : "darkTap".tr()),
@@ -55,8 +61,10 @@ class _SettingScreenState extends State<SettingScreen> {
             height: 20,
           ),
           Container(
-              alignment: Alignment.centerLeft,
-              margin: EdgeInsets.only(left: 20, bottom: 2),
+              alignment: context.locale == Locale("ar")
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20, bottom: 2, right: 20),
               child: Text("languageTap".tr())),
           InkWell(
             onTap: () {
@@ -76,7 +84,11 @@ class _SettingScreenState extends State<SettingScreen> {
               decoration: BoxDecoration(
                 color: Colors.transparent,
                 borderRadius: BorderRadius.circular(30),
-                border: Border.all(color: Color(0xffFACC1D), width: 2),
+                border: Border.all(
+                    color: pro.mode == ThemeMode.dark
+                        ? Color(0xffFACC1D)
+                        : Color(0xffB7935F),
+                    width: 3),
               ),
               child: context.locale == Locale("en")
                   ? Text("englishTap".tr())

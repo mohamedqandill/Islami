@@ -75,12 +75,14 @@ class _AzkarMasaaState extends State<AzkarMasaa> {
                             color: pro.mode == ThemeMode.dark
                                 ? Colors.red
                                 : Color(0xffB7935F),
-                            blurRadius: 10,
+                            blurRadius: 12,
                             spreadRadius: 1,
-                            blurStyle: BlurStyle.outer,
+                            // blurStyle: BlurStyle.outer,
                           ),
                         ],
-                        border: Border.all(color: Colors.red, width: 1),
+                        border: pro.mode == ThemeMode.dark
+                            ? Border.all(color: Colors.red, width: 1)
+                            : Border.all(color: Color(0xffB7935F), width: 3),
                         borderRadius: BorderRadius.only(
                           bottomRight: Radius.circular(50),
                           bottomLeft: Radius.circular(20),

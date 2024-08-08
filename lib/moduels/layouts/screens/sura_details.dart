@@ -55,18 +55,18 @@ class SuraDetails extends StatelessWidget {
                 Expanded(
                   child: Container(
                     margin: EdgeInsets.all(12),
-                    padding: EdgeInsets.all(10),
+                    padding: EdgeInsets.all(15),
                     decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xffB7935F), width: 3),
                         color: pro.mode == ThemeMode.dark
                             ? darkPrimary
-                            : Color(0xffB7935F),
+                            : Colors.white,
                         boxShadow: [
                           BoxShadow(
-                              color: pro.mode == ThemeMode.dark
-                                  ? Colors.redAccent
-                                  : Colors.white,
-                              blurRadius: 3,
-                              spreadRadius: 1)
+                            color: Color(0xffB7935F),
+                            blurRadius: 15,
+                            blurStyle: BlurStyle.outer,
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(30)),
                     child: SingleChildScrollView(
@@ -82,15 +82,14 @@ class SuraDetails extends StatelessWidget {
                                 i++) ...{
                               TextSpan(
                                   text: provider.verses[i],
-                                  style: pro.mode == ThemeMode.dark
-                                      ? Theme.of(context).textTheme.bodyLarge
-                                      : Theme.of(context).textTheme.bodyMedium),
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
                               WidgetSpan(
                                 alignment: PlaceholderAlignment.middle,
                                 child: CircleAvatar(
                                   backgroundColor: pro.mode == ThemeMode.dark
                                       ? Colors.red.withOpacity(0.5)
-                                      : Colors.white,
+                                      : Color(0xffB7935F),
                                   child: Text(
                                     '${i + 1}',
                                     textAlign: TextAlign.center,
