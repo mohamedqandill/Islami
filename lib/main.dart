@@ -1,5 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:islami/core/theme/app_theme.dart';
 import 'package:islami/moduels/layouts/layout_screen.dart';
 import 'package:islami/moduels/layouts/screens/azkarSabah.dart';
@@ -8,9 +8,26 @@ import 'package:islami/moduels/layouts/screens/hadeth_details.dart';
 import 'package:islami/moduels/layouts/screens/nabi_screen.dart';
 import 'package:islami/moduels/layouts/screens/sura_details.dart';
 import 'package:islami/moduels/splash/screens/splash_screen.dart';
+import 'package:islami/providers/my_provider.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(const MyApp());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  var sharedPrefernces = await SharedPreferences.getInstance();
+  WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
+  runApp(EasyLocalization(
+    supportedLocales: [Locale("en"), Locale("ar")],
+    path: 'assets/translations',
+    startLocale: Locale("ar"),
+    saveLocale: true,
+    // <-- change the path of the translation files
+    fallbackLocale: Locale('en', 'US'),
+    child: ChangeNotifierProvider(
+        create: (context) => MyProvider(sharedPrefernces),
+        child: const MyApp()),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -19,11 +36,17 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<MyProvider>(context);
+
     return MaterialApp(
+      localizationsDelegates: context.localizationDelegates,
+      supportedLocales: context.supportedLocales,
+      locale: context.locale,
+
       title: 'Flutter Demo',
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.dark,
+      themeMode: pro.mode,
       debugShowCheckedModeBanner: false,
       routes: {
         SplashScreen.routeName: (context) => SplashScreen(),
@@ -35,15 +58,15 @@ class MyApp extends StatelessWidget {
         AzkarMasaa.routeName: (context) => AzkarMasaa(),
       },
       initialRoute: SplashScreen.routeName,
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-      ],
-      supportedLocales: [
-        Locale('en'), // English
-        Locale('ar'), // Spanish
-      ],
+      // localizationsDelegates: [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      // ],
+      // supportedLocales: [
+      //   Locale('en'), // English
+      //   Locale('ar'), // Spanish
+      // ],
     );
   }
 }

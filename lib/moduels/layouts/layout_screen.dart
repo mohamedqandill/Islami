@@ -1,13 +1,10 @@
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:islami/moduels/layouts/screens/hadeth_screen.dart';
 import 'package:islami/moduels/layouts/screens/home_screen.dart';
 import 'package:islami/moduels/layouts/screens/quran_screen.dart';
-import 'package:islami/moduels/layouts/screens/radio_screen.dart';
 import 'package:islami/moduels/layouts/screens/sebha_screen.dart';
 import 'package:islami/moduels/layouts/screens/setting_screen.dart';
-import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 
 import '../../core/widgets/bg_widget.dart';
 
@@ -22,17 +19,17 @@ class LayoutScreen extends StatefulWidget {
 
 List<Widget> screen = [
   QuranScreen(),
-  HadethScreen(),
   HomeScreen(),
+  HadethScreen(),
   SebhaScreen(),
   SettingScreen(),
 ];
 List<String> titels = [
-  "القرأن الكريم",
-  "الاحاديث",
-  "اسلامي",
-  "التسبيح",
-  "الاعدادات",
+  "quran",
+  'appBarTitle',
+  'appBarHadeth',
+  'appBarTaspeh',
+  'appBarSettings'
 ];
 
 class _LayoutScreenState extends State<LayoutScreen> {
@@ -45,7 +42,7 @@ class _LayoutScreenState extends State<LayoutScreen> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           title: Text(
-            titels[selectedIndex],
+            titels[selectedIndex].tr(),
             style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
@@ -67,22 +64,23 @@ class _LayoutScreenState extends State<LayoutScreen> {
             BottomNavigationBarItem(
                 icon: ImageIcon(
                     size: 40, AssetImage("assets/icons/icon_quran.png")),
-                label: "القرأن"),
-            BottomNavigationBarItem(
-                icon: ImageIcon(
-                    size: 40, AssetImage("assets/icons/icon_hadeth.png")),
-                label: "الاحاديث"),
+                label: "quranTap".tr()),
             BottomNavigationBarItem(
                 icon: ImageIcon(
                     size: 40, AssetImage("assets/icons/icons8-home-64.png")),
                 label: ""),
             BottomNavigationBarItem(
                 icon: ImageIcon(
+                    size: 40, AssetImage("assets/icons/icon_hadeth.png")),
+                label: 'hadethTap'.tr()),
+            BottomNavigationBarItem(
+                icon: ImageIcon(
                     size: 40, AssetImage("assets/icons/icon_sebha.png")),
-                label: "التسبيح"),
+              label: "tasbehTap".tr(),
+            ),
             BottomNavigationBarItem(
               icon: Icon(size: 30, Icons.settings),
-              label: "الاعدادات",
+              label: "settingsTap".tr(),
             ),
           ],
         ),

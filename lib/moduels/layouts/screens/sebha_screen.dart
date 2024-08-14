@@ -1,7 +1,8 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:islami/core/theme/app_theme.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/my_provider.dart';
 
 class SebhaScreen extends StatefulWidget {
   SebhaScreen({super.key});
@@ -25,6 +26,8 @@ class _SebhaScreenState extends State<SebhaScreen> {
 
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<MyProvider>(context);
+
     bool isDark = AppTheme.isDark;
     return Scaffold(
       body: Center(
@@ -35,7 +38,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
               Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.only(top: 75),
+                    margin: EdgeInsets.only(top: 79),
                     child: AnimatedRotation(
                       turns: turns,
                       duration: Duration(milliseconds: 150),
@@ -43,19 +46,23 @@ class _SebhaScreenState extends State<SebhaScreen> {
                           fit: BoxFit.cover,
                           width: 250,
                           height: 250,
-                          image: isDark
+                          image: pro.mode == ThemeMode.dark
                               ? AssetImage("assets/icons/body of seb7a.png")
                               : AssetImage("assets/images/body of seb7a.png")),
                     ),
                   ),
                   Container(
-                    margin: EdgeInsets.only(left: 120),
+                    margin: EdgeInsets.only(left: 100, right: 50, top: 10),
                     child: Image(
-                        alignment: Alignment.topCenter,
-                        fit: BoxFit.cover,
-                        image: isDark
-                            ? AssetImage("assets/icons/head of seb7a.png")
-                            : AssetImage("assets/images/head of seb7a.png")),
+                      // alignment: Alignment.topCenter,
+                      fit: BoxFit.cover,
+                        image: pro.mode == ThemeMode.dark
+                          ? AssetImage(
+                              "assets/icons/head of seb7a.png",
+                            )
+                          : AssetImage("assets/images/head of seb7a.png"),
+                      height: 130,
+                    ),
                   ),
                 ],
               ),
@@ -66,7 +73,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
               Container(
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
-                  color: isDark
+                  color: pro.mode == ThemeMode.dark
                       ? Color(0xffFACC1D).withOpacity(0.6)
                       : Color(0xffB7935F),
                 ),
@@ -80,7 +87,7 @@ class _SebhaScreenState extends State<SebhaScreen> {
               ),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                      backgroundColor: isDark
+                      backgroundColor: pro.mode == ThemeMode.dark
                           ? Color(0xffFACC1D).withOpacity(0.8)
                           : Color(0xffB7935F),
                       shape: RoundedRectangleBorder(

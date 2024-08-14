@@ -5,6 +5,11 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
+	<key>CFBundleLocalizations</key>
+    <array>
+    	<string>en</string>
+    	<string>ar</string>
+    </array>
 	<string>Islami</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>

@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:islami/core/theme/app_theme.dart';
 import 'package:islami/core/widgets/bg_widget.dart';
 import 'package:islami/moduels/layouts/screens/azkarSabah.dart';
 import 'package:islami/moduels/layouts/screens/azkar_masaa.dart';
 import 'package:islami/moduels/layouts/screens/nabi_screen.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/my_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({super.key});
@@ -24,10 +25,13 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   int index = 0;
+  double width = 200;
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = AppTheme.isDark;
+    // bool isDark = AppTheme.isDark;
+    var pro = Provider.of<MyProvider>(context);
+
     return bg_widget(
         child: Scaffold(
       body: Padding(
@@ -40,7 +44,9 @@ class _HomeScreenState extends State<HomeScreen> {
               width: double.infinity,
               height: 200,
               decoration: BoxDecoration(
-                  color: isDark ? Colors.black12 : Colors.white,
+                  color: pro.mode == ThemeMode.dark
+                      ? Colors.black12
+                      : Colors.white,
                   borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(60),
                     bottomLeft: Radius.circular(20),
@@ -69,8 +75,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  fixedSize: Size(200, 60),
-                  backgroundColor: isDark
+                  fixedSize: Size(width, 60),
+                  backgroundColor: pro.mode == ThemeMode.dark
                       ? Color(0xffFACC1D).withOpacity(0.5)
                       : Color(0xffB7935F),
                   shape: RoundedRectangleBorder(
@@ -116,10 +122,43 @@ class _HomeScreenState extends State<HomeScreen> {
                     mainAxisSpacing: 50,
                     crossAxisSpacing: 20),
                 children: [
+                  Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          fixedSize: Size(200, 50),
+                          backgroundColor: pro.mode == ThemeMode.dark
+                              ? Color(0xffFACC1D).withOpacity(0.5)
+                              : Color(0xffB7935F),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          side: BorderSide(
+                            color: Colors.white,
+                            width: 1,
+                          ),
+                          elevation: 8,
+                          shadowColor: Colors.amber),
+                      onPressed: () {
+                        Navigator.pushNamed(context, AzkarSabah.routeName);
+                        setState(() {});
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          Text(
+                            "اذكار الصباح ",
+                            style: Theme.of(context).textTheme.titleSmall,
+                          ),
+                          // Image(image: AssetImage("assets/icons/icons8-swap-50.png",),width: 40,),
+                        ],
+                      ),
+                    ),
+                  ),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         fixedSize: Size(200, 50),
-                        backgroundColor: isDark
+                        backgroundColor: pro.mode == ThemeMode.dark
                             ? Color(0xffFACC1D).withOpacity(0.5)
                             : Color(0xffB7935F),
                         shape: RoundedRectangleBorder(
@@ -151,7 +190,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           fixedSize: Size(200, 50),
-                          backgroundColor: isDark
+                          backgroundColor: pro.mode == ThemeMode.dark
                               ? Color(0xffFACC1D).withOpacity(0.5)
                               : Color(0xffB7935F),
                           shape: RoundedRectangleBorder(
@@ -159,19 +198,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           side: BorderSide(
                             color: Colors.white,
-                            width: 2,
+                            width: 1,
                           ),
                           elevation: 8,
                           shadowColor: Colors.amber),
                       onPressed: () {
-                        Navigator.pushNamed(context, AzkarSabah.routeName);
+                        Navigator.pushNamed(context, AzkarMasaa.routeName);
                         setState(() {});
                       },
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
                           Text(
-                            "اذكار الصباح ",
+                            "اذكار المساء",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           // Image(image: AssetImage("assets/icons/icons8-swap-50.png",),width: 40,),
@@ -184,7 +223,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           fixedSize: Size(200, 50),
-                          backgroundColor: isDark
+                          backgroundColor: pro.mode == ThemeMode.dark
                               ? Color(0xffFACC1D).withOpacity(0.5)
                               : Color(0xffB7935F),
                           shape: RoundedRectangleBorder(
@@ -208,39 +247,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         children: [
                           Text(
                             "مواقيت الصلاه",
-                            style: Theme.of(context).textTheme.titleSmall,
-                          ),
-                          // Image(image: AssetImage("assets/icons/icons8-swap-50.png",),width: 40,),
-                        ],
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          fixedSize: Size(200, 50),
-                          backgroundColor: isDark
-                              ? Color(0xffFACC1D).withOpacity(0.5)
-                              : Color(0xffB7935F),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          side: BorderSide(
-                            color: Colors.white,
-                            width: 1,
-                          ),
-                          elevation: 8,
-                          shadowColor: Colors.amber),
-                      onPressed: () {
-                        Navigator.pushNamed(context, AzkarMasaa.routeName);
-                        setState(() {});
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            "اذكار المساء",
                             style: Theme.of(context).textTheme.titleSmall,
                           ),
                           // Image(image: AssetImage("assets/icons/icons8-swap-50.png",),width: 40,),

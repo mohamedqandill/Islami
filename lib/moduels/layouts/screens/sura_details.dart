@@ -1,123 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:islami/core/theme/app_theme.dart';
 import 'package:islami/core/widgets/bg_widget.dart';
 import 'package:islami/moduels/layouts/screens/quran_screen.dart';
+import 'package:islami/providers/sura_details_provider.dart';
+import 'package:provider/provider.dart';
 
-class SuraDetails extends StatefulWidget {
+import '../../../providers/my_provider.dart';
+
+class SuraDetails extends StatelessWidget {
   static const String routeName = "suraDetails";
 
-  const SuraDetails({super.key});
+  SuraDetails({super.key});
 
-  @override
-  State<SuraDetails> createState() => _SuraDetailsState();
-}
-
-class _SuraDetailsState extends State<SuraDetails> {
-  List<String> verses = [];
   bool isDark = AppTheme.isDark;
   Color darkPrimary = AppTheme.darkPrimary;
   Color darkSecondary = AppTheme.darkSecondary;
 
   @override
   Widget build(BuildContext context) {
-    data model = ModalRoute.of(context)?.settings.arguments as data;
-    int count = verses.length;
+    var pro = Provider.of<MyProvider>(context);
+    // var provider = Provider.of<SuraDetailsProvider>(context);
 
-    if (verses.isEmpty) {
-      readSura(model.index + 1);
-    }
-    return bg_widget(
-      child: Scaffold(
-        appBar: AppBar(
-          leading: InkWell(
-              onTap: () {
-                Navigator.pop(context);
-                setState(() {});
-              },
-              child: Icon(
-                Icons.arrow_back,
-              )),
-          title: Column(
-            children: [
-              Text(
-                "سوره ${model.sura}",
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+    var model = ModalRoute.of(context)?.settings.arguments as data;
+
+    return ChangeNotifierProvider(
+        create: (context) => SuraDetailsProvider()..readSura(model.index + 1),
+        builder: (context, child) {
+          var provider = Provider.of<SuraDetailsProvider>(context);
+          return bg_widget(
+            child: Scaffold(
+              appBar: AppBar(
+                leading: InkWell(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Icon(Icons.arrow_back),
+                ),
+                title: Column(
+                  children: [
+                    Text(
+                      "سوره ${model.sura}",
+                      style:
+                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
+                centerTitle: true,
               ),
-            ],
-          ),
-          centerTitle: true,
-        ),
-        body: Column(
-          children: [
-            Text("بسم الله الرحمن الرحيم",
-                style: GoogleFonts.elMessiri(
-                    fontSize: 30, fontWeight: FontWeight.bold)),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.all(12),
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                    color: isDark ? darkPrimary : Color(0xffB7935F),
-                    boxShadow: [
-                      BoxShadow(
-                          color: isDark ? Color(0xffB7935F) : Colors.white,
-                          blurRadius: 1,
-                          spreadRadius: 2)
-                    ],
-                    borderRadius: BorderRadius.circular(30)),
-                child: SingleChildScrollView(
-                  child: RichText(
-                    textAlign:
-                        count <= 20 ? TextAlign.center : TextAlign.justify,
-                    textDirection: TextDirection.rtl,
-                    text: TextSpan(
-                      children: [
-                        for (var i = 0; i <= count - 1; i++) ...{
-                          TextSpan(
-                              text: verses[i],
-                              style: isDark
-                                  ? Theme.of(context).textTheme.bodyLarge
-                                  : Theme.of(context).textTheme.bodyMedium),
-                          WidgetSpan(
-                            alignment: PlaceholderAlignment.middle,
-                            child: CircleAvatar(
-                              backgroundColor:
-                                  isDark ? Color(0xffB7935F) : Colors.white,
-                              child: Text(
-                                '${i + 1}',
-                                textAlign: TextAlign.center,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 20),
-                                textScaleFactor:
-                                    i.toString().length <= 2 ? 1 : .8,
-                              ),
-                              radius: 14,
-                            ),
+              body: Column(children: [
+                Text("بسم الله الرحمن الرحيم",
+                    style: GoogleFonts.elMessiri(
+                        fontSize: 30, fontWeight: FontWeight.bold)),
+                Expanded(
+                  child: Container(
+                    margin: EdgeInsets.all(12),
+                    padding: EdgeInsets.all(15),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Color(0xffB7935F), width: 3),
+                        color: pro.mode == ThemeMode.dark
+                            ? darkPrimary
+                            : Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color(0xffB7935F),
+                            blurRadius: 15,
+                            blurStyle: BlurStyle.outer,
                           ),
-                        },
-                      ],
+                        ],
+                        borderRadius: BorderRadius.circular(30)),
+                    child: SingleChildScrollView(
+                      child: RichText(
+                        textAlign: provider.verses.length <= 20
+                            ? TextAlign.center
+                            : TextAlign.justify,
+                        textDirection: TextDirection.rtl,
+                        text: TextSpan(
+                          children: [
+                            for (var i = 0;
+                                i <= provider.verses.length - 1;
+                                i++) ...{
+                              TextSpan(
+                                  text: provider.verses[i],
+                                  style:
+                                      Theme.of(context).textTheme.bodyMedium),
+                              WidgetSpan(
+                                alignment: PlaceholderAlignment.middle,
+                                child: CircleAvatar(
+                                  backgroundColor: pro.mode == ThemeMode.dark
+                                      ? Colors.red.withOpacity(0.5)
+                                      : Color(0xffB7935F),
+                                  child: Text(
+                                    '${i + 1}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: pro.mode == ThemeMode.dark
+                                            ? Colors.white
+                                            : Colors.black,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20),
+                                    textScaleFactor:
+                                        i.toString().length <= 2 ? 1 : .8,
+                                  ),
+                                  radius: 14,
+                                ),
+                              ),
+                            },
+                          ],
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ]),
             ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 
-  readSura(int index) async {
-    String sura =
-        await rootBundle.loadString("assets/suras/${index}.txt"); // all
-
-    String newSura = sura.trim();
-    List<String> suraLine = newSura.split("\n"); // line
-    verses = suraLine;
-    setState(() {});
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
   }
 }

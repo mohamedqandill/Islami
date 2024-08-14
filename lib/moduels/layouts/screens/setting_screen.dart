@@ -1,4 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:islami/moduels/layouts/screens/language_bottom_sheet.dart';
+import 'package:islami/moduels/layouts/screens/theme_bottom_sheet.dart';
+import 'package:islami/providers/my_provider.dart';
+import 'package:provider/provider.dart';
 
 class SettingScreen extends StatefulWidget {
   SettingScreen({super.key});
@@ -8,147 +13,90 @@ class SettingScreen extends StatefulWidget {
 }
 
 class _SettingScreenState extends State<SettingScreen> {
-  String mode = "Light";
-  String language = "Arabic";
-
   @override
   Widget build(BuildContext context) {
+    var pro = Provider.of<MyProvider>(context);
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      "mode",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-                    ),
-                    SizedBox(
-                      width: 40,
-                    ),
-                    SizedBox(
-                      width: 280,
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xffB7935F),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.black45, width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  BorderSide(color: Colors.black45, width: 2),
-                            )),
-                        isExpanded: true,
-                        padding: EdgeInsets.all(30),
-                        dropdownColor: Color(0xffB7935F),
-                        focusColor: Colors.grey.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(30),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          size: 35,
-                        ),
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        items: ["Light", "Dark"]
-                            .map((e) => DropdownMenuItem(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Text("$e"),
-                                  ),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            mode = value!;
-                          });
-                        },
-                        value: mode,
-                      ),
-                    ),
-                  ],
-                ),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
+      body: Column(
+        children: [
+          Container(
+              alignment: context.locale == Locale("ar")
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20, bottom: 2, right: 20),
+              child: Text("themeTap".tr())),
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  isDismissible: true,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  builder: (context) {
+                    return ThemeBottomSheet();
+                  });
+            },
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.all(10),
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                    color: pro.mode == ThemeMode.dark
+                        ? Color(0xffFACC1D)
+                        : Color(0xffB7935F),
+                    width: 3),
               ),
+              child: Text(
+                  pro.mode == ThemeMode.light ? "light".tr() : "darkTap".tr()),
+              padding: EdgeInsets.all(18),
             ),
-            Padding(
-              padding: const EdgeInsets.only(left: 10),
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      "Language",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
-                    ),
-                    SizedBox(
-                      width: 280,
-                      child: DropdownButtonFormField(
-                        decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xffB7935F),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10),
-                              borderSide:
-                                  BorderSide(color: Colors.black45, width: 2),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              borderSide:
-                                  BorderSide(color: Colors.black45, width: 2),
-                            )),
-                        isExpanded: true,
-                        padding: EdgeInsets.all(30),
-                        dropdownColor: Color(0xffB7935F),
-                        focusColor: Colors.grey.withOpacity(0.8),
-                        borderRadius: BorderRadius.circular(30),
-                        icon: Icon(
-                          Icons.arrow_drop_down,
-                          size: 35,
-                        ),
-                        style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.black),
-                        items: ["Arabic", "English"]
-                            .map((e) => DropdownMenuItem(
-                                  child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20),
-                                    child: Text("$e"),
-                                  ),
-                                  value: e,
-                                ))
-                            .toList(),
-                        onChanged: (value) {
-                          setState(() {
-                            language = value!;
-                          });
-                        },
-                        value: language,
-                      ),
-                    ),
-                  ],
-                ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          Container(
+              alignment: context.locale == Locale("ar")
+                  ? Alignment.centerRight
+                  : Alignment.centerLeft,
+              margin: EdgeInsets.only(left: 20, bottom: 2, right: 20),
+              child: Text("languageTap".tr())),
+          InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                  context: context,
+                  isDismissible: true,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.white,
+                  builder: (context) {
+                    return LanguageBottomSheet();
+                  });
+            },
+            child: Container(
+              width: double.infinity,
+              margin: EdgeInsets.all(10),
+              height: 80,
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(30),
+                border: Border.all(
+                    color: pro.mode == ThemeMode.dark
+                        ? Color(0xffFACC1D)
+                        : Color(0xffB7935F),
+                    width: 3),
               ),
+              child: context.locale == Locale("en")
+                  ? Text("englishTap".tr())
+                  : Text("arabicTap".tr()),
+              padding: EdgeInsets.all(18),
             ),
-          ],
-        ),
+          )
+        ],
       ),
     );
   }

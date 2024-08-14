@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:islami/core/theme/app_theme.dart';
 import 'package:islami/core/widgets/bg_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../../providers/my_provider.dart';
 
 class AzkarSabah extends StatefulWidget {
   static const String routeName = "azkarSabah";
@@ -38,7 +40,9 @@ class _AzkarSabahState extends State<AzkarSabah> {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = AppTheme.isDark;
+    // bool  pro.mode==ThemeMode.dark  = AppTheme.isDark;
+    var pro = Provider.of<MyProvider>(context);
+
     return bg_widget(
         child: Scaffold(
       appBar: AppBar(
@@ -70,14 +74,16 @@ class _AzkarSabahState extends State<AzkarSabah> {
                       width: double.infinity,
                       // height: 200,
                       decoration: BoxDecoration(
-                          color: isDark ? Color(0xff141A2E) : Colors.white,
+                          color: pro.mode == ThemeMode.dark
+                              ? Color(0xff141A2E)
+                              : Colors.white,
                           boxShadow: [
                             BoxShadow(
-                                color: isDark
-                                    ? Color(0xffFACC1D)
+                                color: pro.mode == ThemeMode.dark
+                                    ? Colors.red
                                     : Color(0xffB7935F),
                                 blurRadius: 10,
-                                spreadRadius: 4)
+                                spreadRadius: 1)
                           ],
                           borderRadius: BorderRadius.only(
                             bottomRight: Radius.circular(50),
@@ -85,8 +91,9 @@ class _AzkarSabahState extends State<AzkarSabah> {
                             topLeft: Radius.circular(40),
                             topRight: Radius.circular(20),
                           ),
-                          border:
-                              Border.all(color: Color(0xffB7935F), width: 2)),
+                          border: pro.mode == ThemeMode.dark
+                              ? Border.all(color: Colors.red, width: 1)
+                              : Border.all(color: Color(0xffB7935F), width: 3)),
                       child: Text(
                         "${azkaar[index]}",
                         textDirection: TextDirection.rtl,
